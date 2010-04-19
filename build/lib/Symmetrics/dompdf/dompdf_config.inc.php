@@ -205,7 +205,7 @@ if (!defined("TTF2AFM")) {
  * @link http://www.php.net/image
  */
 if (!defined("DOMPDF_PDF_BACKEND")) {
-  define("DOMPDF_PDF_BACKEND", "CPDF");
+  define("DOMPDF_PDF_BACKEND", "auto");
 }
 
 /**
@@ -235,7 +235,7 @@ if (!defined("DOMPDF_PDFLIB_LICENSE")) {
  * Therefore allow specification of content here.
  */
 if (!defined("DOMPDF_DEFAULT_MEDIA_TYPE")) {
-  define("DOMPDF_DEFAULT_MEDIA_TYPE", "screen");
+  define("DOMPDF_DEFAULT_MEDIA_TYPE", "print");
 }
 
 /**
@@ -246,7 +246,7 @@ if (!defined("DOMPDF_DEFAULT_MEDIA_TYPE")) {
  * @see CPDF_Adapter::PAPER_SIZES for valid sizes
  */
 if (!defined("DOMPDF_DEFAULT_PAPER_SIZE")) {
-  define("DOMPDF_DEFAULT_PAPER_SIZE", "letter");
+  define("DOMPDF_DEFAULT_PAPER_SIZE", "a4");
 }
 
 
@@ -309,7 +309,7 @@ if (!defined("DOMPDF_DPI")) {
  * @var bool
  */
 if (!defined("DOMPDF_ENABLE_PHP")) {
-  define("DOMPDF_ENABLE_PHP", true);
+  define("DOMPDF_ENABLE_PHP", false);
 }
 
 /**

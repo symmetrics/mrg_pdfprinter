@@ -34,5 +34,94 @@
  */
 class Symmetrics_PdfPrinter_Helper_Data extends Mage_Core_Helper_Abstract
 {
-
+    const PDFPRINTER_CACHE_DIR = 'pdfprinter';
+    
+    /**
+     * Get cms page by identifier
+     * 
+     * @param string $identifier CMS page identifier
+     * 
+     * @return Mage_Cms_Model_Page
+     */
+    public function getPage($identifier)
+    {
+        $pageModel = Mage::getModel('cms/page');
+        $pageId = $pageModel->checkIdentifier($identifier, $this->getStoreId());
+        $pageModel->load($pageId);
+        
+        return $pageModel;
+    }
+    
+    /**
+     * Get currently selected store
+     * 
+     * @return Mage_Core_Model_Store
+     */
+    public function getStore()
+    {
+        return Mage::app()->getStore();
+    }
+    
+    /**
+     * Get id of current store
+     * 
+     * @return int
+     */
+    public function getStoreId()
+    {
+        return $this->getStore()->getId();
+    }
+    
+    /**
+     * Get request object
+     * 
+     * @return mixed
+     */
+    protected function _getRequest()
+    {
+        return Mage::app()->getRequest();
+    }
+    
+    /**
+     * Get pdf cache dir
+     * 
+     * @return string
+     */
+    public function getCacheDir()
+    {
+        return Mage::getBaseDir('media') . DS . self::PDFPRINTER_CACHE_DIR . DS;
+    }
+    
+    /**
+     * Check if cms page is already cached
+     * 
+     * @param Mage_Cms_Model_Page $cmsPage CMS page object
+     * 
+     * @return bool|string
+     */
+    public function checkCache($cmsPage)
+    {
+        $updated = $cmsPage->getUpdateTime();
+        $pageName = $cmsPage->getIdentifier();
+        $cacheDir = $this->getCacheDir();
+        $fileName = $cacheDir . 'page_' . $pageName . '_' . $updated;
+        if (file_exists($fileName)) {
+            
+            return $fileName;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Generate pdf from html
+     * 
+     * @param string $html
+     * 
+     * @return mixed
+     */
+    public function htmlToPdf($html)
+    {
+        require Mage::getBaseDir('lib') . 'Symmetrics' . DS . 'dompdf' . DS . '';
+    }
 }

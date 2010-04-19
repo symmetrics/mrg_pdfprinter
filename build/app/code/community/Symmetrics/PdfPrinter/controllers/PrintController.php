@@ -34,8 +34,33 @@
  */
 class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_Action
 {
+    /**
+     * Index action of print controller
+     */
     public function indexAction()
     {
-        echo 'blub';
+        $pageIdentifier = $this->_getRequest()->getParam('identifier');
+        
+        $cmsPage = $this->getHelper()->getPage($pageIdentifier);
+        $pdfCache = $this->getHelper()->checkCache($cmsPage);
+        if ($pdfCache === false) {
+            $content = $cmsPage->getContent();
+            $processor = Mage::getModel('cms/template_filter');
+            $html = $processor->filter($content);
+            $this->getHelper()->htmlToPdf($html);
+        } else {
+            var_dump($pdfCache);
+            die();
+        }
+    }
+    
+    /**
+     * Return helper object
+     * 
+     * @return Symmetrics_PdfPrinter_Helper_Data
+     */
+    public function getHelper()
+    {
+        return Mage::helper('pdfprinter');
     }
 }

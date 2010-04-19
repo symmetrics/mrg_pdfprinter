@@ -24,6 +24,20 @@
 $installer = $this;
 $installer->startSetup();
 
-mkdir(Mage::getBaseDir('media') . DS . 'pdfprinter');
+define('PDFPRINTER_CACHE_DIR', Mage::getBaseDir('media') . DS . 'pdfprinter');
+
+try {
+    if (!is_dir(PDFPRINTER_CACHE_DIR)) {
+        mkdir(PDFPRINTER_CACHE_DIR);
+    }
+    if (!is_writable(PDFPRINTER_CACHE_DIR)) {
+        chmod(PDFPRINTER_CACHE_DIR, 0777);
+    }
+} catch(Eception $e) {
+    throw new Exception(
+        'Directory ' . PDFPRINTER_CACHE_DIR . ' is not writable or couldn\'t be
+        created. Please do it manually.' . $e->getMessage()
+    );
+}
 
 $installer->endSetup();
