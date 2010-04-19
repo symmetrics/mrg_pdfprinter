@@ -91,7 +91,7 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
         } else {
             $this->_forward('noRoute');
         }
-        return this;
+        return $this;
     }
     
     /**
