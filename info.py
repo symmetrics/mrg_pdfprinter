@@ -4,7 +4,7 @@
 # =============================================================================
 # package info
 # =============================================================================
-NAME = 'symmetrics_module_printpdf'
+NAME = 'symmetrics_module_pdfprinter'
 
 TAGS = ('symmetrics', 'magento', 'pdf', 'module', 'php', 'generate', 'mrg')
 

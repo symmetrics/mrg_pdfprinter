@@ -13,7 +13,7 @@
  * to license@magentocommerce.com so we can send you a copy immediately.
  *
  * @category  Symmetrics
- * @package   Symmetrics_PrintPdf
+ * @package   Symmetrics_PdfPrinter
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Eric Reiche <er@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
@@ -21,18 +21,9 @@
  * @link      http://www.symmetrics.de/
  */
 
-/**
- * Print controller
- *
- * @category  Symmetrics
- * @package   Symmetrics_PrintPdf
- * @author    symmetrics gmbh <info@symmetrics.de>
- * @author    Eric Reiche <er@symmetrics.de>
- * @copyright 2010 symmetrics gmbh
- * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- * @link      http://www.symmetrics.de/
- */
-class Symmetrics_PrintPdf_PrintController extends Mage_Core_Controller_Front_Action
-{
+$installer = $this;
+$installer->startSetup();
 
-}
+
+
+$installer->endSetup();
