@@ -4,9 +4,9 @@
 # =============================================================================
 # package info
 # =============================================================================
-NAME = 'symmetrics_module_pdfprinter'
+NAME = 'symmetrics_module_printpdf'
 
-TAGS = ()
+TAGS = ('symmetrics', 'magento', 'pdf', 'module', 'php', 'generate', 'mrg')
 
 LICENSE = 'AFL 3.0'
 
@@ -19,52 +19,46 @@ INSTALL_PATH = ''
 # responsibilities
 # =============================================================================
 TEAM_LEADER = {
-    '[firstname] [lastname]': '[email]',
+    'Torsten Walluhn': 'tw@symmetrics.de',
 }
 
 MAINTAINER = {
-    '[firstname] [lastname]': '[email]',
+    'Eric Reiche': 'er@symmetrics.de',
 }
 
 AUTHORS = {
-    '[firstname] [lastname]': '[email]',
+    'Eric Reiche': 'er@symmetrics.de',
 }
 
 # =============================================================================
 # additional infos
 # =============================================================================
-INFO = '[short description, max 60 chars]'
+INFO = 'Generate PDF files from CMS pages'
 
 SUMMARY = '''
-    [long description
-    with multiple lines]
+uses DOMPDF
 '''
 
 NOTES = '''
-    [special notes, restrictions, bugs etc.]
 '''
 
 # =============================================================================
 # relations
 # =============================================================================
 REQUIRES = [
-    # {'magento': '*', 'magento_enterprise': '*'},
+     {'magento': '*', 'magento_enterprise': '*'},
 ]
 
-EXCLUDES = {
-}
+EXCLUDES = {}
 
-VIRTUAL = {
-}
+VIRTUAL = {}
 
 DEPENDS_ON_FILES = (
-    'app/code/core/.../1.php',
-    'app/code/core/.../2.php',
-    'app/code/core/.../3.php',
 )
 
 PEAR_KEY = ''
 
 COMPATIBLE_WITH = {
-    # 'magento': ['1.3.2', '1.3.2.1', ...],
+     'magento': ['1.4.0.0'],
+     'magento_enterprise': ['1.7.0.0', '1.7.1.0', '1.8.0.0']
 }
