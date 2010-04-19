@@ -35,23 +35,63 @@
 class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_Action
 {
     /**
+     * @var Symmetrics_PdfPrinter_Helper_Data $_helper Helper object
+     */
+    protected $_helper;
+    
+    /**
+     * Constructor
+     * set autoloader for DomPDF
+     * 
+     * @param Zend_Controller_Request_Abstract  $request    Request object
+     * @param Zend_Controller_Response_Abstract $response   Response Object
+     * @param array                             $invokeArgs Arguments to pass-through
+     * 
+     * @return void
+     */
+    public function __construct(
+        Zend_Controller_Request_Abstract $request,
+        Zend_Controller_Response_Abstract $response,
+        array $invokeArgs = array()
+    )
+    {
+        require_once 'Symmetrics/dompdf/dompdf_config.inc.php';
+        spl_autoload_unregister(array(Varien_Autoload::instance(), 'autoload'));
+        spl_autoload_register('DOMPDF_autoload');
+        Varien_Autoload::register();
+        
+        parent::__construct($request, $response, $invokeArgs);
+    }
+    
+    /**
      * Index action of print controller
+     * 
+     * @return Symmetrics_PdfPrinter_PrintController
      */
     public function indexAction()
     {
-        $pageIdentifier = $this->_getRequest()->getParam('identifier');
-        
-        $cmsPage = $this->getHelper()->getPage($pageIdentifier);
-        $pdfCache = $this->getHelper()->checkCache($cmsPage);
-        if ($pdfCache === false) {
-            $content = $cmsPage->getContent();
-            $processor = Mage::getModel('cms/template_filter');
-            $html = $processor->filter($content);
-            $this->getHelper()->htmlToPdf($html);
+        if ($pageIdentifier = $this->getHelper()->getRequest()->getParam('identifier')) {
+            $cmsPage = $this->getHelper()->getPage($pageIdentifier);
+            $pdfCache = $this->getHelper()->checkCache($cmsPage);
+            if ($pdfCache === false) {
+                $content = $cmsPage->getContent();
+                $processor = Mage::getModel('cms/template_filter');
+                $html = $processor->filter($content);
+                $pdfContent = $this->getHelper()->htmlToPdf($html);
+                $this->getHelper()->cachePdf($cmsPage, $pdfContent);
+            }
+            $pdfCache = $this->getHelper()->checkCache($cmsPage);
+            if ($pdfCache === false) {
+                throw new Exception('PDF File could not be cached');
+            }
+            if (!isset($pdfContent)) {
+                $pdfContent = file_get_contents($pdfCache);
+            }
+            $this->_prepareDownloadResponse($pageIdentifier . '.pdf', $pdfContent, 'application/pdf');
         } else {
-            var_dump($pdfCache);
-            die();
+            $this->_forward('noRoute');
         }
+        return this;
     }
     
     /**
@@ -61,6 +101,77 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
      */
     public function getHelper()
     {
-        return Mage::helper('pdfprinter');
+        if (!isset($this->_helper)) {
+            $this->_helper = Mage::helper('pdfprinter');
+        }
+        
+        return $this->_helper;
+    }
+    
+
+    /**
+     * Declare headers and content file in responce for file download
+     *
+     * @param string $fileName      name of the file which the user can download
+     * @param string $content       set to null to avoid starting output,
+     *                              $contentLength should be set explicitly in
+     *                              that case
+     * @param string $contentType   content type, in this case application/pdf
+     * @param int    $contentLength explicit content length, if strlen($content)
+     *                              isn't applicable
+     *
+     * @return Symmetrics_PdfProductSheet_ProductController
+     */
+    protected function _prepareDownloadResponse(
+        $fileName,
+        $content,
+        $contentType = 'application/octet-stream',
+        $contentLength = null
+    )
+    {
+        $session = Mage::getSingleton('admin/session');
+        if ($session->isFirstPageAfterLogin()) {
+            $this->_redirect($session->getUser()->getStartupPageUrl());
+            return $this;
+        }
+        $this->getResponse()
+            ->setHttpResponseCode(200)
+            ->setHeader('Pragma', 'public', true)
+            ->setHeader(
+                'Cache-Control',
+                'must-revalidate,post-check=0, pre-check=0',
+                true
+            )
+            ->setHeader('Content-type', $contentType, true)
+            ->setHeader(
+                'Content-Length',
+                is_null($contentLength) ? strlen($content) : $contentLength
+            )
+            ->setHeader(
+                'Content-Disposition',
+                'attachment; filename=' . $fileName
+            )
+            ->setHeader('Last-Modified', date('r'));
+        if (!is_null($content)) {
+            $this->getResponse()->setBody($content);
+        }
+        return $this;
+    }
+
+    /**
+     * Set redirect in response object
+     *
+     * @param string $path      redirect path
+     * @param array  $arguments url arguments
+     *
+     * @return Symmetrics_PdfProductSheet_ProductController
+     */
+    protected function _redirect($path, $arguments=array())
+    {
+        $this->_getSession()
+            ->setIsUrlNotice($this->getFlag('', self::FLAG_IS_URLS_CHECKED));
+        $this->getResponse()
+            ->setRedirect($this->getUrl($path, $arguments));
+        return $this;
     }
 }

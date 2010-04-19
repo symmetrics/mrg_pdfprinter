@@ -34,7 +34,15 @@
  */
 class Symmetrics_PdfPrinter_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    /**
+     * @const string PDFPRINTER_CACHE_DIR cache directory under media dir
+     */
     const PDFPRINTER_CACHE_DIR = 'pdfprinter';
+    
+    /**
+     * @const string FILE_EXTENSION extension for PDF files
+     */
+    const FILE_EXTENSION = '.pdf';
     
     /**
      * Get cms page by identifier
@@ -77,7 +85,7 @@ class Symmetrics_PdfPrinter_Helper_Data extends Mage_Core_Helper_Abstract
      * 
      * @return mixed
      */
-    protected function _getRequest()
+    public function getRequest()
     {
         return Mage::app()->getRequest();
     }
@@ -101,10 +109,10 @@ class Symmetrics_PdfPrinter_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function checkCache($cmsPage)
     {
-        $updated = $cmsPage->getUpdateTime();
+        $updated = $this->convertToUts($cmsPage->getUpdateTime());
         $pageName = $cmsPage->getIdentifier();
         $cacheDir = $this->getCacheDir();
-        $fileName = $cacheDir . 'page_' . $pageName . '_' . $updated;
+        $fileName = $cacheDir . 'page_' . $pageName . '_' . $updated . self::FILE_EXTENSION;
         if (file_exists($fileName)) {
             
             return $fileName;
@@ -116,12 +124,53 @@ class Symmetrics_PdfPrinter_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Generate pdf from html
      * 
-     * @param string $html
+     * @param string $html content to convert
      * 
-     * @return mixed
+     * @return binary (PDF content)
      */
     public function htmlToPdf($html)
     {
-        require Mage::getBaseDir('lib') . 'Symmetrics' . DS . 'dompdf' . DS . '';
+        $dompdf = new DOMPDF();
+        $dompdf->load_html($html);
+        $dompdf->render();
+        
+        return $dompdf->output();
+    }
+    
+    /**
+     * Cache pdf file for future use
+     * 
+     * @param Mage_Cms_Model_Page $cmsPage CMS page object
+     * @param binary              $pdf     PDF content
+     * @param string              $type    page|block
+     * 
+     * @return bool
+     */
+    public function cachePdf($cmsPage, $pdf, $type='page')
+    {
+        $updated = $this->convertToUts($cmsPage->getUpdateTime());
+        $pageName = $cmsPage->getIdentifier();
+        $cacheDir = $this->getCacheDir();
+        $fileName = $cacheDir . $type . '_' . $pageName . '_' . $updated . self::FILE_EXTENSION;
+        if (file_exists($fileName)) {
+            
+            return false;
+        }
+        file_put_contents($fileName, $pdf);
+    }
+    
+    /**
+     * Convert a datetime string to unix timestamp
+     * 
+     * @param string $timeString datetime in internal format
+     * 
+     * @return int
+     */
+    public function convertToUts($timeString)
+    {
+        $zendDate = new Zend_Date($timeString, Varien_Date::DATETIME_INTERNAL_FORMAT);
+        $timeUts = $zendDate->toString(Zend_Date::TIMESTAMP);
+        
+        return $timeUts;
     }
 }

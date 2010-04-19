@@ -333,28 +333,25 @@ if (!defined("DOMPDF_ENABLE_REMOTE")) {
   define("DOMPDF_ENABLE_REMOTE", false);
 }
  
+
 /**
  * DOMPDF autoload function
  *
  * If you have an existing autoload function, add a call to this function
  * from your existing __autoload() implementation.
  *
- * TODO: use spl_autoload(), if available
- *
  * @param string $class
  */
 function DOMPDF_autoload($class) {
-  $filename = DOMPDF_INC_DIR . "/" . mb_strtolower($class) . ".cls.php";
-  
-  if ( is_file($filename) )
-    require_once($filename);
+  $filename = mb_strtolower($class) . ".cls.php";
+  if (file_exists(DOMPDF_INC_DIR . "/$filename")) {
+    require_once(DOMPDF_INC_DIR . "/$filename");
+  } else {
+    return false;
+  }
 }
 
-if ( function_exists("spl_autoload_register") ) {
-
-   spl_autoload_register("DOMPDF_autoload");
-
-} else if ( !function_exists("__autoload") ) {
+if ( !function_exists("__autoload") ) {
   /**
    * Default __autoload() function
    *
@@ -366,6 +363,7 @@ if ( function_exists("spl_autoload_register") ) {
 }
 
 // ### End of user-configurable options ###
+
 
 
 /**
