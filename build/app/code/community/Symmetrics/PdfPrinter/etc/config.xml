@@ -28,4 +28,42 @@
             <version>0.1.0</version>
         </Symmetrics_PdfPrinter>
     </modules>
+    <global>
+        <resources>
+            <pdfprinter_setup>
+                <setup>
+                    <module>Symmetrics_PdfPrinter</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </pdfprinter_setup>
+            <pdfprinter_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </pdfprinter_write>
+            <pdfprinter_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </pdfprinter_read>
+        </resources>
+        <helpers>
+            <pdfprinter>
+                <class>Symmetrics_PdfPrinter_Helper</class>
+            </pdfprinter>
+        </helpers>
+    </global>
+    <frontend>
+        <routers>
+            <pdfprinter>
+                <use>standard</use>
+                <args>
+                    <module>Symmetrics_PdfPrinter</module>
+                    <frontName>pdfprinter</frontName>
+                </args>
+            </pdfprinter>
+        </routers>
+    </frontend>
 </config>

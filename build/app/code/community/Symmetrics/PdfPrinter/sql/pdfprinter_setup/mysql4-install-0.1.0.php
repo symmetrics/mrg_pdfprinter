@@ -24,6 +24,6 @@
 $installer = $this;
 $installer->startSetup();
 
-
+mkdir(Mage::getBaseDir('media') . DS . 'pdfprinter');
 
 $installer->endSetup();
