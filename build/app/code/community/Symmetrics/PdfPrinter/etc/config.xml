@@ -54,6 +54,11 @@
                 <class>Symmetrics_PdfPrinter_Helper</class>
             </pdfprinter>
         </helpers>
+        <models>
+            <pdfprinter>
+                <class>Symmetrics_PdfPrinter_Model</class>
+            </pdfprinter>
+        </models>
     </global>
     <frontend>
         <routers>

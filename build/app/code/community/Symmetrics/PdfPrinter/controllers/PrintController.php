@@ -71,16 +71,18 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
     public function indexAction()
     {
         if ($pageIdentifier = $this->getHelper()->getRequest()->getParam('identifier')) {
-            $cmsPage = $this->getHelper()->getPage($pageIdentifier);
-            $pdfCache = $this->getHelper()->checkCache($cmsPage);
+            $pdfModel = Mage::getModel('pdfprinter/pdf');
+            $pdfModel->loadPage($pageIdentifier);
+            $pdfCache = $pdfModel->checkCache();
             if ($pdfCache === false) {
+                $cmsPage = $pdfModel->getPage();
                 $content = $cmsPage->getContent();
                 $processor = Mage::getModel('cms/template_filter');
                 $html = $processor->filter($content);
-                $pdfContent = $this->getHelper()->htmlToPdf($html);
-                $this->getHelper()->cachePdf($cmsPage, $pdfContent);
+                $pdfContent = $pdfModel->htmlToPdf($html);
+                $pdfModel->cachePdf($pdfContent);
             }
-            $pdfCache = $this->getHelper()->checkCache($cmsPage);
+            $pdfCache = $pdfModel->checkCache();
             if ($pdfCache === false) {
                 throw new Exception('PDF File could not be cached');
             }
@@ -91,6 +93,7 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
         } else {
             $this->_forward('noRoute');
         }
+        
         return $this;
     }
     
