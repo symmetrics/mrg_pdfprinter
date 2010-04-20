@@ -50,10 +50,7 @@ REQUIRES = [
      {'magento': '*', 'magento_enterprise': '*'},
 ]
 
-EXCLUDES = {
-     'magento': '1.3.*.*',
-     'magento_enterprise': '1.3.*.*',
-}
+EXCLUDES = {}
 
 VIRTUAL = {}
 
