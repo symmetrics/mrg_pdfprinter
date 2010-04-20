@@ -53,6 +53,8 @@ class Symmetrics_PdfPrinter_Block_Pdf extends Mage_Core_Block_Template
     
     /**
      * Get previously set template content for template
+     * 
+     * @return void
      */
     public function getPdfContent()
     {
@@ -62,7 +64,7 @@ class Symmetrics_PdfPrinter_Block_Pdf extends Mage_Core_Block_Template
     /**
      * Set PDF content so it can be gotten by the template
      * 
-     * @param $pdfContent
+     * @param binary $pdfContent binary PDF content
      * 
      * @return Symmetrics_PdfPrinter_Block_Pdf
      */
