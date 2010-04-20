@@ -51,8 +51,8 @@ REQUIRES = [
 ]
 
 EXCLUDES = {
-     'magento': ['1.3.*.*'],
-     'magento_enterprise': ['1.3.*.*'],
+     'magento': '1.3.*.*',
+     'magento_enterprise': '1.3.*.*',
 }
 
 VIRTUAL = {}
