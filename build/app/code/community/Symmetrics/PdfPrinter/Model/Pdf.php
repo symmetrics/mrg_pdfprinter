@@ -70,6 +70,11 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
         return $this;
     }
     
+    /**
+     * Get CMS page object
+     * 
+     * @return Mage_Cms_Model_Page
+     */
     public function getPage()
     {
         return $this->_cmsPage;
@@ -128,8 +133,6 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
     
     /**
      * Generate file name
-     * 
-     * @param string $type page|block
      * 
      * @return string
      */

@@ -33,7 +33,7 @@
  * @link      http://www.symmetrics.de/
  */
 class Symmetrics_PdfPrinter_Helper_Data extends Mage_Core_Helper_Abstract
-{    
+{
     /**
      * @const string PDFPRINTER_CACHE_DIR cache directory under media dir
      */
