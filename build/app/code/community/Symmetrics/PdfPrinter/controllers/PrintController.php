@@ -75,11 +75,7 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
             $pdfModel->loadPage($pageIdentifier);
             $pdfCache = $pdfModel->checkCache();
             if ($pdfCache === false) {
-                $cmsPage = $pdfModel->getPage();
-                $content = $cmsPage->getContent();
-                $processor = Mage::getModel('cms/template_filter');
-                $html = $processor->filter($content);
-                $pdfContent = $pdfModel->htmlToPdf($html);
+                $pdfContent = $pdfModel->parseContents($this->getLayout());
                 $pdfModel->cachePdf($pdfContent);
             }
             $pdfCache = $pdfModel->checkCache();

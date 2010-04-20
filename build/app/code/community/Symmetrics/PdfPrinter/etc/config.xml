@@ -59,6 +59,11 @@
                 <class>Symmetrics_PdfPrinter_Model</class>
             </pdfprinter>
         </models>
+        <blocks>
+            <pdfprinter>
+                <class>Symmetrics_PdfPrinter_Block</class>
+            </pdfprinter>
+        </blocks>
     </global>
     <frontend>
         <routers>

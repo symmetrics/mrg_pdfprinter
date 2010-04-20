@@ -54,6 +54,27 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
     const FILE_EXTENSION = '.pdf';
 
     /**
+     * Parse html content for pdf generation
+     * 
+     * @return binary
+     */
+    public function parseContents()
+    {
+        $content = $this->_cmsPage->getContent();
+        $processor = Mage::getModel('cms/template_filter');
+        $html = $processor->filter($content);
+        
+        $html = Mage::getSingleton('core/layout')
+            ->createBlock('pdfprinter/pdf')
+            ->setPdfContent($html)
+            ->toHtml();
+        
+        $pdfContent = $this->htmlToPdf($html);
+        
+        return $pdfContent;
+    }
+    
+    /**
      * Get cms page by identifier
      * 
      * @param string $identifier CMS page identifier
