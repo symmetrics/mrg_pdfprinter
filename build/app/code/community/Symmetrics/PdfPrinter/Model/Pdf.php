@@ -121,8 +121,8 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
      */
     public function cachePdf($pdf)
     {
-        $fileName = $this->checkCache();
-        if ($fileName != false) {
+        if (!$this->checkCache()) {
+            $fileName = $this->buildFileName();
             file_put_contents($fileName, $pdf);
             
             return true;
