@@ -40,6 +40,7 @@ uses DOMPDF
 '''
 
 NOTES = '''
+Not compatible with magento 1.3 or below
 '''
 
 # =============================================================================
@@ -49,12 +50,14 @@ REQUIRES = [
      {'magento': '*', 'magento_enterprise': '*'},
 ]
 
-EXCLUDES = {}
+EXCLUDES = {
+     'magento': ['1.3.2.0', '1.3.2.1', '1.3.2.2', '1.3.2.3', '1.3.2.4'],
+     'magento_enterprise': ['1.3.2.0', '1.3.2.1', '1.3.2.2', '1.3.2.3', '1.3.2.4']
+}
 
 VIRTUAL = {}
 
-DEPENDS_ON_FILES = (
-)
+DEPENDS_ON_FILES = ()
 
 PEAR_KEY = ''
 
