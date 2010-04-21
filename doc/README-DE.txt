@@ -2,6 +2,8 @@
 
 ** INSTALLATION
 Extrahieren Sie den Inhalt dieses Archivs in Ihr Magento Verzeichnis.
+Die Verzeichnisse lib/Symmetrics/dompdf/lib/fonts/ und media/pdfprinter
+müssen vom Webserver beschreibbar sein!
 
 ** USAGE
 Dieses Modul wandelt beliebige CMS Seiten on-the-fly in PDF Dateien um.
