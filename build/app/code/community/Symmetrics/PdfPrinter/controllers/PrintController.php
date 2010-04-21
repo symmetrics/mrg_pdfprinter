@@ -107,7 +107,6 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
         return $this->_helper;
     }
     
-
     /**
      * Declare headers and content file in responce for file download
      *
@@ -132,24 +131,14 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
         if ($session->isFirstPageAfterLogin()) {
             $this->_redirect($session->getUser()->getStartupPageUrl());
             return $this;
-        }
+        }        
         $this->getResponse()
             ->setHttpResponseCode(200)
             ->setHeader('Pragma', 'public', true)
-            ->setHeader(
-                'Cache-Control',
-                'must-revalidate,post-check=0, pre-check=0',
-                true
-            )
+            ->setHeader('Cache-Control', 'must-revalidate,post-check=0, pre-check=0', true)
             ->setHeader('Content-type', $contentType, true)
-            ->setHeader(
-                'Content-Length',
-                is_null($contentLength) ? strlen($content) : $contentLength
-            )
-            ->setHeader(
-                'Content-Disposition',
-                'attachment; filename=' . $fileName
-            )
+            ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength)
+            ->setHeader('Content-Disposition', 'attachment; filename=' . $fileName)
             ->setHeader('Last-Modified', date('r'));
         if (!is_null($content)) {
             $this->getResponse()->setBody($content);

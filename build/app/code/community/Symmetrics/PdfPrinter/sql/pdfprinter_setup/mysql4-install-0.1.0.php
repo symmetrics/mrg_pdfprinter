@@ -35,8 +35,8 @@ try {
     }
 } catch(Eception $e) {
     throw new Exception(
-        'Directory ' . PDFPRINTER_CACHE_DIR . ' is not writable or couldn\'t be
-        created. Please do it manually.' . $e->getMessage()
+        'Directory ' . PDFPRINTER_CACHE_DIR . ' is not writable or couldn\'t be '
+        . 'created. Please do it manually.' . $e->getMessage()
     );
 }
 

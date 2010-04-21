@@ -28,6 +28,7 @@ MAINTAINER = {
 
 AUTHORS = {
     'Eric Reiche': 'er@symmetrics.de',
+    'Yauhen Yakimovich': 'yy@symmetrics.de',
 }
 
 # =============================================================================
@@ -54,7 +55,12 @@ EXCLUDES = {}
 
 VIRTUAL = {}
 
-DEPENDS_ON_FILES = ()
+DEPENDS_ON_FILES = (
+    'app/code/core/Mage/Core/Helper/Abstract.php',
+    'app/code/core/Mage/Core/Controller/Front/Action.php',
+    'app/code/core/Mage/Core/Block/Template.php',
+    'app/code/core/Mage/Core/Model/Abstract.php'
+)
 
 PEAR_KEY = ''
 
