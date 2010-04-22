@@ -61,14 +61,12 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
     public function parseContents()
     {
         $content = $this->_cmsPage->getContent();
-        $processor = Mage::getModel('cms/template_filter');
-        $html = $processor->filter($content);
         
         $html = Mage::getSingleton('core/layout')
             ->createBlock('pdfprinter/pdf')
-            ->setPdfContent($html)
+            ->setPdfContent($content)
             ->toHtml();
-        
+            
         $pdfContent = $this->htmlToPdf($html);
         
         return $pdfContent;
