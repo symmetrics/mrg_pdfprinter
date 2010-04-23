@@ -30,7 +30,7 @@ Dort werden die generierten PDF Dateien mit passendem Timestamp (Änderungsdatum
 ** PROBLEMS
 Der Inhalt des media/pdfprinter/ Verzeichnisses muss manuell gelöscht werden, wenn
 body.phtml angepasst wird.
-CSS Einstellungen der body.phtml werden scheinbar nicht übernommen.
+
 
 * TESTCASES
 
