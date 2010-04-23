@@ -2,6 +2,8 @@
 
 ** INSTALLATION
 Extrahieren Sie den Inhalt dieses Archivs in Ihr Magento Verzeichnis.
+Die Verzeichnisse lib/Symmetrics/dompdf/lib/fonts/ und media/pdfprinter
+müssen vom Webserver beschreibbar sein!
 
 ** USAGE
 Dieses Modul wandelt beliebige CMS Seiten on-the-fly in PDF Dateien um.
@@ -28,6 +30,7 @@ Dort werden die generierten PDF Dateien mit passendem Timestamp (Änderungsdatum
 ** PROBLEMS
 Der Inhalt des media/pdfprinter/ Verzeichnisses muss manuell gelöscht werden, wenn
 body.phtml angepasst wird.
+CSS Einstellungen der body.phtml werden scheinbar nicht übernommen.
 
 * TESTCASES
 
