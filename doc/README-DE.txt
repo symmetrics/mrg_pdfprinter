@@ -11,11 +11,18 @@ Die PDF Dateien sind über folgende URL erreichbar
 [magento-root]/pdfprinter/print/index/identifier/[cms-identifier]
 Wobei der [cms-identifier] dem URL-Key der CMS Seiten entspricht, also z.B. 
 http://127.0.0.1//pdfprinter/print/index/identifier/agb
+Dabei werden Formatierungen und Einstellungen gemäß HTML und CSS aus einem
+Template berücksichtigt.
+Aus Performancegründen werden die generierten PDF Dateien im Media Verzeichnis
+gecached.
 
 ** FUNCTIONALITY
 *** A: Generiert aus CMS Seiten on-the-fly PDF Dateien
 *** B: Berücksichtigt dabei Einstellungen (CSS) in body.phtml Template
-*** C: Cached generierte PDF Dateien
+*** C: Cached generierte PDF Dateien, streamt sie beim nächsten Aufruf.
+        Beim Ändern einer CMS Seite wird ein Änderungsdatum gespeichert.
+        Dieses Änderungsdatum wird in einen UNIX Timestamp umgewandelt
+        und im Dateinamen eingefügt.
 
 ** TECHNICAL
 Es gibt einen eigenen Controller, der mithilfe eines Models und eines
@@ -30,6 +37,8 @@ Dort werden die generierten PDF Dateien mit passendem Timestamp (Änderungsdatum
 ** PROBLEMS
 Der Inhalt des media/pdfprinter/ Verzeichnisses muss manuell gelöscht werden, wenn
 body.phtml angepasst wird.
+Außerdem sammeln sich in diesem Verzeichnis immer mehr PDF Dateien an, die nie
+automatisch gelöscht werden.
 
 
 * TESTCASES
