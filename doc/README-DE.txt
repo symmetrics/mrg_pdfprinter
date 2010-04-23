@@ -50,7 +50,3 @@ automatisch gelöscht werden.
         entsprechend verändern (* UNBEDINGT den Abschnitt PROBLEMS beachten *)
 *** C: Prüfen Sie den Inhalt des media/pdfprinter/ Verzeichnisses und rufen Sie
         die PDF Dateien auf.
-
-** CATCHABLE
-
-** STRESS
