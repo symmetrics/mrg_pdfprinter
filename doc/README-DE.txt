@@ -2,9 +2,8 @@
 
 ** INSTALLATION
 Extrahieren Sie den Inhalt dieses Archivs in Ihr Magento Verzeichnis.
-Ggf. ist das Leeren/Auffrischen des Magento-Caches notwendig. Die 
-Verzeichnisse lib/Symmetrics/dompdf/lib/fonts/ und media/pdfprinter
-müssen vom Webserver beschreibbar sein!
+Ggf. ist das Leeren/Auffrischen des Magento-Caches notwendig. Das 
+Verzeichniss media/pdfprinter muss vom Webserver beschreibbar sein!
 
 ** USAGE
 Dieses Modul wandelt beliebige CMS Seiten on-the-fly in PDF Dateien um.
@@ -15,7 +14,8 @@ http://127.0.0.1//pdfprinter/print/index/identifier/agb
 Dabei werden Formatierungen und Einstellungen gemäß HTML und CSS aus einem
 Template berücksichtigt.
 Aus Performancegründen werden die generierten PDF Dateien im Media 
-Verzeichnis gecached. Die Dateinamen enthalten das lezte Änderungsdatum der CMS Seite.
+Verzeichnis gecached. Die Dateinamen enthalten das lezte Änderungsdatum der 
+CMS Seite.
 
 ** FUNCTIONALITY
 *** A: Generiert aus CMS Seiten on-the-fly PDF Dateien
@@ -32,22 +32,27 @@ verwendet.
 Der Text wird vorher in das pdfprinter/body.phtml Template eingebettet,
 um via CSS z.B. einen Seitenrand zu ermöglichen.
 Via Migrationsskript wird ein Order pdfprinter im Media-Verzeichnis angelegt.
-Dort werden die generierten PDF Dateien mit passendem Timestamp (Änderungsdatum)
-"gecached".
+Dort werden die generierten PDF Dateien mit passendem Timestamp 
+(Änderungsdatum) "gecached".
+Fontcache Verzeichniss für DOM Pdf wird per Migrationsdatei als 
+var/lib/Symmetrics/dompdf/fonts angelegt und muss auch vom Webserver 
+beschreibbar sein.
 
 ** PROBLEMS
-Der Inhalt des media/pdfprinter/ Verzeichnisses muss manuell gelöscht werden, wenn
-body.phtml angepasst wird.
-Außerdem sammeln sich in diesem Verzeichnis immer mehr PDF Dateien an, die nie
-automatisch gelöscht werden.
-
+Der Inhalt des media/pdfprinter/ Verzeichnisses muss manuell gelöscht werden, 
+wenn body.phtml angepasst wird.
+Außerdem sammeln sich in diesem Verzeichnis immer mehr PDF Dateien an, die 
+nie automatisch gelöscht werden.
 
 * TESTCASES
 
 ** BASIC
-*** A: Rufen Sie eine entsprechende URL auf und prüfen Sie, ob die PDF Datei wie 
-        erwartet aussieht. Inbesondere ob Umlaute richtig dargestellt werden.
-*** B: Ändern Sie das body.phtml Template und prüfen Sie, ob die PDF Dateien sich
-        entsprechend verändern (* UNBEDINGT den Abschnitt PROBLEMS beachten *)
-*** C: Prüfen Sie den Inhalt des media/pdfprinter/ Verzeichnisses und rufen Sie
-        die PDF Dateien auf.
+*** A: Rufen Sie eine entsprechende URL auf und prüfen Sie, ob die PDF Datei 
+        wie erwartet aussieht. Inbesondere ob Umlaute richtig dargestellt 
+        werden.
+*** B: Ändern Sie das body.phtml Template und prüfen Sie, ob die PDF Dateien 
+        sich entsprechend verändern (* UNBEDINGT den Abschnitt PROBLEMS 
+        beachten *)
+*** C: Prüfen Sie den Inhalt des media/pdfprinter/ Verzeichnisses und rufen 
+        Sie die PDF Dateien auf. Die Inhalte der Dateien müssen immer aktuell 
+        sein und den letzten Änderungen der CMS-Seiten entsprechen.
