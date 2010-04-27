@@ -16,6 +16,7 @@
  * @package   Symmetrics_PdfPrinter
  * @author    symmetrics gmbh <info@symmetrics.de>
  * @author    Eric Reiche <er@symmetrics.de>
+ * @author    Yauhen Yakimovich <yy@symmetrics.de>
  * @copyright 2010 symmetrics gmbh
  * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
  * @link      http://www.symmetrics.de/
@@ -24,18 +25,32 @@
 $installer = $this;
 $installer->startSetup();
 
-define('PDFPRINTER_CACHE_DIR', Mage::getBaseDir('media') . DS . 'pdfprinter');
-
+// make directory for pdf cache
 try {
-    if (!is_dir(PDFPRINTER_CACHE_DIR)) {
-        mkdir(PDFPRINTER_CACHE_DIR);
+    $pdfPrinterCacheDir = Mage::getBaseDir('media') . DS . 'pdfprinter';
+    if (!is_dir($pdfPrinterCacheDir)) {
+        mkdir($pdfPrinterCacheDir);
     }
-    if (!is_writable(PDFPRINTER_CACHE_DIR)) {
-        chmod(PDFPRINTER_CACHE_DIR, 0777);
+    if (!is_writable($pdfPrinterCacheDir)) {
+        chmod($pdfPrinterCacheDir, 0777);
     }
-} catch(Eception $e) {
+} catch(Exception $e) {
     throw new Exception(
-        'Directory ' . PDFPRINTER_CACHE_DIR . ' is not writable or couldn\'t be '
+        'Directory ' . $pdfPrinterCacheDir . ' is not writable or couldn\'t be '
+        . 'created. Please do it manually.' . $e->getMessage()
+    );
+}
+
+// make directory for font cache
+try {
+    $domPdfFontCacheDir = join(DS, array('lib', 'Symmetrics', 'dompdf', 'fonts'));
+    $domPdfFontCacheDir = Mage::getBaseDir('var') . DS . $domPdfFontCacheDir;
+    if (!file_exists($domPdfFontCacheDir)) {
+        mkdir($domPdfFontCacheDir, 0777, true);
+    }
+} catch(Exception $e) {
+    throw new Exception(
+        'Directory ' . $domPdfFontCacheDir . ' is not writable or couldn\'t be '
         . 'created. Please do it manually.' . $e->getMessage()
     );
 }

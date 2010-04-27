@@ -38,59 +38,72 @@ class Symmetrics_PdfPrinter_Helper_Data extends Mage_Core_Helper_Abstract
      * @const string PDFPRINTER_CACHE_DIR cache directory under media dir
      */
     const PDFPRINTER_CACHE_DIR = 'pdfprinter';
-    
+
     /**
      * Get currently selected store
-     * 
+     *
      * @return Mage_Core_Model_Store
      */
     public function getStore()
     {
         return Mage::app()->getStore();
     }
-    
+
     /**
      * Get id of current store
-     * 
+     *
      * @return int
      */
     public function getStoreId()
     {
         return $this->getStore()->getId();
     }
-    
+
     /**
      * Get request object
-     * 
+     *
      * @return mixed
      */
     public function getRequest()
     {
         return Mage::app()->getRequest();
     }
-    
+
     /**
-     * Get pdf cache dir
-     * 
+     * Get pdf cache directory
+     *
      * @return string
      */
     public function getCacheDir()
     {
         return Mage::getBaseDir('media') . DS . self::PDFPRINTER_CACHE_DIR . DS;
     }
-    
+
     /**
      * Convert a datetime string to unix timestamp
-     * 
+     *
      * @param string $timeString datetime in internal format
-     * 
+     *
      * @return int
      */
     public function convertToUts($timeString)
     {
         $zendDate = new Zend_Date($timeString, Varien_Date::DATETIME_INTERNAL_FORMAT);
         $timeUts = $zendDate->toString(Zend_Date::TIMESTAMP);
-        
+
         return $timeUts;
+    }
+
+    /**
+     * Get cache directory for pdf fonts
+     *
+     * @return string cache directory
+     */
+    public function getFontCacheDir()
+    {
+        $domPdfFontCacheDir = join(DS, array('lib', 'Symmetrics', 'dompdf', 'fonts'));
+        $domPdfFontCacheDir = Mage::getBaseDir('var') . DS . $domPdfFontCacheDir;
+
+        return $domPdfFontCacheDir;
     }
 }
