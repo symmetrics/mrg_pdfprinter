@@ -143,6 +143,7 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
         if (!is_null($content)) {
             $this->getResponse()->setBody($content);
         }
+
         return $this;
     }
 
@@ -160,6 +161,7 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
             ->setIsUrlNotice($this->getFlag('', self::FLAG_IS_URLS_CHECKED));
         $this->getResponse()
             ->setRedirect($this->getUrl($path, $arguments));
+        
         return $this;
     }
 }

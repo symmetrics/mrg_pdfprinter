@@ -2,7 +2,8 @@
 
 ** INSTALLATION
 Extrahieren Sie den Inhalt dieses Archivs in Ihr Magento Verzeichnis.
-Die Verzeichnisse lib/Symmetrics/dompdf/lib/fonts/ und media/pdfprinter
+Ggf. ist das Leeren/Auffrischen des Magento-Caches notwendig. Die 
+Verzeichnisse lib/Symmetrics/dompdf/lib/fonts/ und media/pdfprinter
 müssen vom Webserver beschreibbar sein!
 
 ** USAGE
@@ -13,8 +14,8 @@ Wobei der [cms-identifier] dem URL-Key der CMS Seiten entspricht, also z.B.
 http://127.0.0.1//pdfprinter/print/index/identifier/agb
 Dabei werden Formatierungen und Einstellungen gemäß HTML und CSS aus einem
 Template berücksichtigt.
-Aus Performancegründen werden die generierten PDF Dateien im Media Verzeichnis
-gecached.
+Aus Performancegründen werden die generierten PDF Dateien im Media 
+Verzeichnis gecached. Die Dateinamen enthalten das lezte Änderungsdatum der CMS Seite.
 
 ** FUNCTIONALITY
 *** A: Generiert aus CMS Seiten on-the-fly PDF Dateien

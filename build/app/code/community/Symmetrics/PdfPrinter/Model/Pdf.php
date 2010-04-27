@@ -38,7 +38,7 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
      * @var Symmetrics_PdfPrinter_Helper_Data $_helper Helper object
      */
     protected $_helper;
-    
+
     /**
      * @var Mage_Cms_Model_Page $_cmsPage CMS page object
      */
@@ -47,7 +47,7 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
      * @var string $_cmsType page|block
      */
     protected $_cmsType = 'page';
-    
+
     /**
      * @const string FILE_EXTENSION extension for PDF files
      */
@@ -55,28 +55,28 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
 
     /**
      * Parse html content for pdf generation
-     * 
+     *
      * @return binary
      */
     public function parseContents()
     {
         $content = $this->_cmsPage->getContent();
-        
+
         $html = Mage::getSingleton('core/layout')
             ->createBlock('pdfprinter/pdf')
             ->setPdfContent($content)
             ->toHtml();
-            
+
         $pdfContent = $this->htmlToPdf($html);
-        
+
         return $pdfContent;
     }
-    
+
     /**
      * Get cms page by identifier
-     * 
+     *
      * @param string $identifier CMS page identifier
-     * 
+     *
      * @return void
      */
     public function loadPage($identifier)
@@ -85,41 +85,40 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
         $pageId = $pageModel->checkIdentifier($identifier, $this->getHelper()->getStoreId());
         $this->_cmsPage = $pageModel->load($pageId);
         $this->_cmsType = 'page';
-        
+
         return $this;
     }
-    
+
     /**
      * Get CMS page object
-     * 
+     *
      * @return Mage_Cms_Model_Page
      */
     public function getPage()
     {
         return $this->_cmsPage;
     }
-    
+
     /**
      * Check if cms page is already cached
-     * 
+     *
      * @return bool|string  cache filename on success
      */
     public function checkCache()
     {
         $fileName = $this->buildFileName();
         if (file_exists($fileName)) {
-            
             return $fileName;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Generate pdf from html
-     * 
+     *
      * @param string $html content to convert
-     * 
+     *
      * @return binary (PDF content)
      */
     public function htmlToPdf($html)
@@ -127,15 +126,15 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
         $dompdf = new DOMPDF();
         $dompdf->load_html($html);
         $dompdf->render();
-        
+
         return $dompdf->output();
     }
-    
+
     /**
      * Cache pdf file for future use
-     * 
+     *
      * @param binary $pdf PDF content
-     * 
+     *
      * @return bool
      */
     public function cachePdf($pdf)
@@ -143,16 +142,15 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
         if (!$this->checkCache()) {
             $fileName = $this->buildFileName();
             file_put_contents($fileName, $pdf);
-            
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Generate file name
-     * 
+     *
      * @return string
      */
     protected function buildFileName()
@@ -164,13 +162,13 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
         $pageName = $this->_cmsPage->getIdentifier();
         $cacheDir = $this->getHelper()->getCacheDir();
         $fileName = $cacheDir . $this->_cmsType . '_' . $pageName . '_' . $updated . self::FILE_EXTENSION;
-        
+
         return $fileName;
     }
-    
+
     /**
      * Return helper object
-     * 
+     *
      * @return Symmetrics_PdfPrinter_Helper_Data
      */
     public function getHelper()
@@ -178,7 +176,7 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
         if (!isset($this->_helper)) {
             $this->_helper = Mage::helper('pdfprinter');
         }
-        
+
         return $this->_helper;
     }
 }
