@@ -35,43 +35,43 @@
 class Symmetrics_PdfPrinter_Block_Pdf extends Mage_Core_Block_Template
 {
     /**
-     * @var string $_pdfcontent cms content for PDF
+     * @var string $_pdfcontent CMS content for PDF
      */
     protected $_pdfcontent;
-    
+
     /**
      * Set template path
-     * 
+     *
      * @return void
      */
     protected function _construct()
     {
         $this->setTemplate('pdfprinter/body.phtml');
-        
+
         parent::_construct();
     }
-    
+
     /**
      * Get previously set template content for template
-     * 
-     * @return void
+     *
+     * @return binary content
      */
     public function getPdfContent()
     {
         return $this->_pdfcontent;
     }
-    
+
     /**
      * Set PDF content so it can be gotten by the template
-     * 
+     *
      * @param binary $pdfContent binary PDF content
-     * 
-     * @return Symmetrics_PdfPrinter_Block_Pdf
+     *
+     * @return Symmetrics_PdfPrinter_Block_Pdf object
      */
     public function setPdfContent($pdfContent)
     {
         $this->_pdfcontent = $pdfContent;
-        
+
         return $this;
     }
 }

@@ -42,7 +42,7 @@ class Symmetrics_PdfPrinter_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get currently selected store
      *
-     * @return Mage_Core_Model_Store
+     * @return Mage_Core_Model_Store store
      */
     public function getStore()
     {
@@ -52,7 +52,7 @@ class Symmetrics_PdfPrinter_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get id of current store
      *
-     * @return int
+     * @return int id 
      */
     public function getStoreId()
     {
@@ -62,7 +62,7 @@ class Symmetrics_PdfPrinter_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get request object
      *
-     * @return mixed
+     * @return mixed request
      */
     public function getRequest()
     {
@@ -72,7 +72,7 @@ class Symmetrics_PdfPrinter_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get pdf cache directory
      *
-     * @return string
+     * @return string directory
      */
     public function getCacheDir()
     {
@@ -84,7 +84,7 @@ class Symmetrics_PdfPrinter_Helper_Data extends Mage_Core_Helper_Abstract
      *
      * @param string $timeString datetime in internal format
      *
-     * @return int
+     * @return int UTS time
      */
     public function convertToUts($timeString)
     {

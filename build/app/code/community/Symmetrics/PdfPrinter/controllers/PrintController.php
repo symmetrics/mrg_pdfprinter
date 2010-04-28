@@ -38,15 +38,15 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
      * @var Symmetrics_PdfPrinter_Helper_Data $_helper Helper object
      */
     protected $_helper;
-    
+
     /**
      * Constructor
      * set autoloader for DomPDF
-     * 
+     *
      * @param Zend_Controller_Request_Abstract  $request    Request object
      * @param Zend_Controller_Response_Abstract $response   Response Object
      * @param array                             $invokeArgs Arguments to pass-through
-     * 
+     *
      * @return void
      */
     public function __construct(
@@ -61,17 +61,17 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
         spl_autoload_unregister(array(Varien_Autoload::instance(), 'autoload'));
         spl_autoload_register('DOMPDF_autoload');
         Varien_Autoload::register();
-        
+
         parent::__construct($request, $response, $invokeArgs);
     }
-    
+
     /**
      * Index action of print controller
-     * 
-     * @return Symmetrics_PdfPrinter_PrintController
+     *
+     * @return Symmetrics_PdfPrinter_PrintController controller
      */
     public function indexAction()
-    {        
+    {
         if ($pageIdentifier = $this->getHelper()->getRequest()->getParam('identifier')) {
             $pdfModel = Mage::getModel('pdfprinter/pdf');
             $pdfModel->loadPage($pageIdentifier);
@@ -91,24 +91,24 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
         } else {
             $this->_forward('noRoute');
         }
-        
+
         return $this;
     }
-    
+
     /**
      * Return helper object
-     * 
-     * @return Symmetrics_PdfPrinter_Helper_Data
+     *
+     * @return Symmetrics_PdfPrinter_Helper_Data helper
      */
     public function getHelper()
     {
         if (!isset($this->_helper)) {
             $this->_helper = Mage::helper('pdfprinter');
         }
-        
+
         return $this->_helper;
     }
-    
+
     /**
      * Declare headers and content file in responce for file download
      *
@@ -120,7 +120,7 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
      * @param int    $contentLength explicit content length, if strlen($content)
      *                              isn't applicable
      *
-     * @return Symmetrics_PdfProductSheet_ProductController
+     * @return Symmetrics_PdfProductSheet_ProductController controller
      */
     protected function _prepareDownloadResponse(
         $fileName,
@@ -133,7 +133,7 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
         if ($session->isFirstPageAfterLogin()) {
             $this->_redirect($session->getUser()->getStartupPageUrl());
             return $this;
-        }        
+        }
         $this->getResponse()
             ->setHttpResponseCode(200)
             ->setHeader('Pragma', 'public', true)
@@ -155,7 +155,7 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
      * @param string $path      redirect path
      * @param array  $arguments url arguments
      *
-     * @return Symmetrics_PdfProductSheet_ProductController
+     * @return Symmetrics_PdfProductSheet_ProductController controller
      */
     protected function _redirect($path, $arguments=array())
     {
@@ -163,7 +163,7 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
             ->setIsUrlNotice($this->getFlag('', self::FLAG_IS_URLS_CHECKED));
         $this->getResponse()
             ->setRedirect($this->getUrl($path, $arguments));
-        
+
         return $this;
     }
 }

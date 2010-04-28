@@ -56,7 +56,7 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
     /**
      * Parse html content for pdf generation
      *
-     * @return binary
+     * @return binary content
      */
     public function parseContents()
     {
@@ -92,7 +92,7 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
     /**
      * Get CMS page object
      *
-     * @return Mage_Cms_Model_Page
+     * @return Mage_Cms_Model_Page object
      */
     public function getPage()
     {
@@ -131,27 +131,24 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
     }
 
     /**
-     * Cache pdf file for future use
+     * Write pdf content into file if no cache were found
      *
      * @param binary $pdf PDF content
      *
-     * @return bool
+     * @return void
      */
     public function cachePdf($pdf)
     {
         if (!$this->checkCache()) {
             $fileName = $this->buildFileName();
             file_put_contents($fileName, $pdf);
-            return true;
         }
-
-        return false;
     }
 
     /**
      * Generate file name
      *
-     * @return string
+     * @return string file name
      */
     protected function buildFileName()
     {
@@ -169,7 +166,7 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
     /**
      * Return helper object
      *
-     * @return Symmetrics_PdfPrinter_Helper_Data
+     * @return Symmetrics_PdfPrinter_Helper_Data helper
      */
     public function getHelper()
     {
