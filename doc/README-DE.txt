@@ -18,7 +18,10 @@ Verzeichnis gecached. Die Dateinamen enthalten das lezte Änderungsdatum der
 CMS Seite.
 
 ** FUNCTIONALITY
-*** A: Generiert aus CMS Seiten on-the-fly PDF Dateien
+*** A: Generiert aus CMS Seiten on-the-fly PDF Dateien. Dabei sollten
+        Block Aufrufe geparsed werden. Man kann dies z.B. in Kombination
+        mit dem Imprint Modul testen:
+        {{block type="symmetrics_impressum/impressum" value="shopname"}}.
 *** B: Berücksichtigt dabei Einstellungen (CSS) in body.phtml Template
 *** C: Cached generierte PDF Dateien, streamt sie beim nächsten Aufruf.
         Beim Ändern einer CMS Seite wird ein Änderungsdatum gespeichert.
