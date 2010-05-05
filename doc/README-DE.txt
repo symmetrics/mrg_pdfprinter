@@ -10,7 +10,7 @@ Dieses Modul wandelt beliebige CMS Seiten on-the-fly in PDF Dateien um.
 Die PDF Dateien sind über folgende URL erreichbar
 [magento-root]/pdfprinter/print/index/identifier/[cms-identifier]
 Wobei der [cms-identifier] dem URL-Key der CMS Seiten entspricht, also z.B. 
-http://127.0.0.1//pdfprinter/print/index/identifier/agb
+http://127.0.0.1/pdfprinter/print/index/identifier/agb
 Dabei werden Formatierungen und Einstellungen gemäß HTML und CSS aus einem
 Template berücksichtigt.
 Aus Performancegründen werden die generierten PDF Dateien im Media 
