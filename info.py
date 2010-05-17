@@ -49,6 +49,7 @@ Not compatible with magento 1.3 or below
 # =============================================================================
 REQUIRES = [
      {'magento': '*', 'magento_enterprise': '*'},
+     {'symmetrics_lib_dompdf': '*'},
 ]
 
 EXCLUDES = {}
