@@ -55,7 +55,7 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
         array $invokeArgs = array()
     )
     {
-        $domPdfFontCacheDir = Mage::helper('pdfprinter')->getFontCacheDir();
+        $domPdfFontCacheDir = Mage::helper('dompdf')->getFontCacheDir();
         define("DOMPDF_FONT_CACHE", $domPdfFontCacheDir);
         require_once 'Symmetrics/dompdf/dompdf_config.inc.php';
         spl_autoload_unregister(array(Varien_Autoload::instance(), 'autoload'));
