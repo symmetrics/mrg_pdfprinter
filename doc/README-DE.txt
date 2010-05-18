@@ -7,7 +7,7 @@ Verzeichniss media/pdfprinter muss vom Webserver beschreibbar sein!
 
 ** USAGE
 Dieses Modul wandelt beliebige CMS Seiten on-the-fly in PDF Dateien um.
-Die PDF Dateien sind über folgende URL erreichbar
+Die PDF Dateien sind über folgende URL erreichbar:
 [magento-root]/pdfprinter/print/index/identifier/[cms-identifier]
 Wobei der [cms-identifier] dem URL-Key der CMS Seiten entspricht, also z.B. 
 http://127.0.0.1/pdfprinter/print/index/identifier/agb
