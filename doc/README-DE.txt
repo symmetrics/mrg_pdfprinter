@@ -65,3 +65,5 @@ nie automatisch gelöscht werden.
         identifieren an. Rufen Sie dann im Frontend die gleiche URL in
         verschiedenen Stores auf.
         Es sollte die dem Store zugeordnete Seite zurückgegeben werden.
+        Bei einer im Store nicht existierenden Seite sollten Sie auf die
+        no-route Seite weitergeleitet werden.
