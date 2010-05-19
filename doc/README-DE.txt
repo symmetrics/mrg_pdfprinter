@@ -27,6 +27,8 @@ CMS Seite.
         Beim Ändern einer CMS Seite wird ein Änderungsdatum gespeichert.
         Dieses Änderungsdatum wird in einen UNIX Timestamp umgewandelt
         und im Dateinamen eingefügt.
+*** D: Es werden Mutli-Store Umgebungen beachtet.
+        Je nach aktivem Shop werden die entsprechenden CMS Seiten geladen.
 
 ** TECHNICAL
 Es gibt einen eigenen Controller, der mithilfe eines Models und eines
@@ -59,3 +61,7 @@ nie automatisch gelöscht werden.
 *** C: Prüfen Sie den Inhalt des media/pdfprinter/ Verzeichnisses und rufen 
         Sie die PDF Dateien auf. Die Inhalte der Dateien müssen immer aktuell 
         sein und den letzten Änderungen der CMS-Seiten entsprechen.
+*** D: Legen Sie mehrere Shops mit jeweils eigenen CMS Seiten und den gleichen
+        identifieren an. Rufen Sie dann im Frontend die gleiche URL in
+        verschiedenen Stores auf.
+        Es sollte die dem Store zugeordnete Seite zurückgegeben werden.
