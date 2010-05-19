@@ -21,7 +21,7 @@ CMS Seite.
 *** A: Generiert aus CMS Seiten on-the-fly PDF Dateien. Dabei sollten
         Block Aufrufe geparsed werden. Man kann dies z.B. in Kombination
         mit dem Imprint Modul testen:
-        {{block type="symmetrics_impressum/impressum" value="shopname"}}.
+        {{block type="imprint/field" value="street"}}.
 *** B: Berücksichtigt dabei Einstellungen (CSS) in body.phtml Template
 *** C: Cached generierte PDF Dateien, streamt sie beim nächsten Aufruf.
         Beim Ändern einer CMS Seite wird ein Änderungsdatum gespeichert.
