@@ -80,16 +80,19 @@ class Symmetrics_PdfPrinter_Model_Pdf extends Mage_Core_Model_Abstract
      *
      * @param string $identifier CMS page identifier
      *
-     * @return void
+     * @return bool
      */
     public function loadPage($identifier)
     {
         $pageModel = Mage::getModel('cms/page');
         $pageId = $pageModel->checkIdentifier($identifier, $this->getHelper()->getStoreId());
-        $this->_cmsPage = $pageModel->load($pageId);
-        $this->_cmsType = 'page';
-
-        return $this;
+        if (!is_null($pageId) && $pageId != false) {
+            $this->_cmsPage = $pageModel->load($pageId);
+            $this->_cmsType = 'page';
+            return true;
+        }
+        
+        return false;
     }
 
     /**

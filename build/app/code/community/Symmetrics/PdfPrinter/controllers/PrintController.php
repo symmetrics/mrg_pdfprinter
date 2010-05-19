@@ -55,8 +55,10 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
         array $invokeArgs = array()
     )
     {
-        $domPdfFontCacheDir = Mage::helper('dompdf')->getFontCacheDir();
-        define("DOMPDF_FONT_CACHE", $domPdfFontCacheDir);
+        if (!defined("DOMPDF_FONT_CACHE")) {
+            $domPdfFontCacheDir = Mage::helper('dompdf')->getFontCacheDir();
+            define("DOMPDF_FONT_CACHE", $domPdfFontCacheDir);
+        }
         require_once 'Symmetrics/dompdf/dompdf_config.inc.php';
         spl_autoload_unregister(array(Varien_Autoload::instance(), 'autoload'));
         spl_autoload_register('DOMPDF_autoload');
@@ -74,22 +76,25 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
     {
         if ($pageIdentifier = $this->getHelper()->getRequest()->getParam('identifier')) {
             $pdfModel = Mage::getModel('pdfprinter/pdf');
-            $pdfModel->loadPage($pageIdentifier);
-            $pdfCache = $pdfModel->checkCache();
-            if ($pdfCache === false) {
-                $pdfContent = $pdfModel->parseContents($this->getLayout());
-                $pdfModel->cachePdf($pdfContent);
+            if (!$pdfModel->loadPage($pageIdentifier)) {
+            $this->_forward('no-route');
+            } else {
+                $pdfCache = $pdfModel->checkCache();
+                if ($pdfCache === false) {
+                    $pdfContent = $pdfModel->parseContents($this->getLayout());
+                    $pdfModel->cachePdf($pdfContent);
+                }
+                $pdfCache = $pdfModel->checkCache();
+                if ($pdfCache === false) {
+                    throw new Exception('PDF File could not be cached');
+                }
+                if (!isset($pdfContent)) {
+                    $pdfContent = file_get_contents($pdfCache);
+                }
+                $this->_prepareDownloadResponse($pageIdentifier . '.pdf', $pdfContent, 'application/pdf');
             }
-            $pdfCache = $pdfModel->checkCache();
-            if ($pdfCache === false) {
-                throw new Exception('PDF File could not be cached');
-            }
-            if (!isset($pdfContent)) {
-                $pdfContent = file_get_contents($pdfCache);
-            }
-            $this->_prepareDownloadResponse($pageIdentifier . '.pdf', $pdfContent, 'application/pdf');
         } else {
-            $this->_forward('noRoute');
+            $this->_forward('no-route');
         }
 
         return $this;
@@ -145,24 +150,6 @@ class Symmetrics_PdfPrinter_PrintController extends Mage_Core_Controller_Front_A
         if (!is_null($content)) {
             $this->getResponse()->setBody($content);
         }
-
-        return $this;
-    }
-
-    /**
-     * Set redirect in response object
-     *
-     * @param string $path      redirect path
-     * @param array  $arguments url arguments
-     *
-     * @return Symmetrics_PdfProductSheet_ProductController controller
-     */
-    protected function _redirect($path, $arguments=array())
-    {
-        $this->_getSession()
-            ->setIsUrlNotice($this->getFlag('', self::FLAG_IS_URLS_CHECKED));
-        $this->getResponse()
-            ->setRedirect($this->getUrl($path, $arguments));
 
         return $this;
     }
