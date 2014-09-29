@@ -1,0 +1,8 @@
+build/app/code/community/Symmetrics/PdfPrinter/Block/Pdf.php app/code/community/Symmetrics/PdfPrinter/Block/Pdf.php
+build/app/code/community/Symmetrics/PdfPrinter/controllers/PrintController.php app/code/community/Symmetrics/PdfPrinter/controllers/PrintController.php
+build/app/code/community/Symmetrics/PdfPrinter/etc/config.xml app/code/community/Symmetrics/PdfPrinter/etc/config.xml
+build/app/code/community/Symmetrics/PdfPrinter/Helper/Data.php app/code/community/Symmetrics/PdfPrinter/Helper/Data.php
+build/app/code/community/Symmetrics/PdfPrinter/Model/Pdf.php app/code/community/Symmetrics/PdfPrinter/Model/Pdf.php
+build/app/code/community/Symmetrics/PdfPrinter/sql/pdfprinter_setup/mysql4-install-0.1.0.php app/code/community/Symmetrics/PdfPrinter/sql/pdfprinter_setup/mysql4-install-0.1.0.php
+build/app/design/frontend/default/default/template/pdfprinter/body.phtml app/design/frontend/default/default/template/pdfprinter/body.phtml
+build/app/etc/modules/Symmetrics_PdfPrinter.xml app/etc/modules/Symmetrics_PdfPrinter.xml
